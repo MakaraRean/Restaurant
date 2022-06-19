@@ -10,26 +10,25 @@ from django.db import models
 
 class CategoryType(models.Model):
     type = models.CharField(max_length=50)
-    image_path = models.CharField(max_length=255)
+    image_path = models.CharField(max_length=255,null=True)
 
 class Category(models.Model):
     name = models.CharField(max_length=255)
-    image_path = models.CharField(max_length=255)
-    desc = models.TextField()
-    categoryType_id = models.ForeignKey(CategoryType,on_delete=models.CASCADE)
+    image_path = models.CharField(max_length=255,null=True)
+    desc = models.TextField(null=True)
+    categoryType = models.ForeignKey(CategoryType,on_delete=models.CASCADE)
 
 class Product(models.Model):
     name = models.CharField(max_length=100)
     price = models.FloatField()
-    desc = models.TextField()
-    image_path = models.CharField(max_length=255)
+    desc = models.TextField(null=True)
+    image_path = models.CharField(max_length=255,null=True)
     created_at = models.DateTimeField(auto_now=True)
-    category_id = models.ForeignKey(Category,on_delete=models.CASCADE)
-    categoryType_id = models.ForeignKey(CategoryType,on_delete=models.CASCADE)
+    category = models.ForeignKey(Category,on_delete=models.CASCADE)
 
 class Table(models.Model):
     tableNumber = models.IntegerField()
-    desc = models.TextField()
+    desc = models.TextField(null=True)
     active = models.BooleanField(default=False)
 
 
@@ -45,16 +44,16 @@ class User(models.Model):
     username = models.CharField(max_length=30)
     password = models.CharField(max_length=100)
     isAdmin = models.BooleanField(default=False)
-    staff_id = models.ForeignKey(Staff,on_delete=models.CASCADE)
+    staff = models.ForeignKey(Staff,on_delete=models.CASCADE)
 
 class Order(models.Model):
     order_date = models.DateTimeField()
     total = models.FloatField()
-    user_id = models.ForeignKey(User,on_delete=models.CASCADE)
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
 
 class OrderDetail(models.Model):
     amount = models.FloatField()
     qty = models.IntegerField()
-    order_id = models.ForeignKey(Order,on_delete=models.CASCADE)
-    category_id = models.ForeignKey(Category,on_delete=models.CASCADE)
-    product_id = models.ForeignKey(Product,on_delete=models.CASCADE)
+    order = models.ForeignKey(Order,on_delete=models.CASCADE)
+    category = models.ForeignKey(Category,on_delete=models.CASCADE)
+    product = models.ForeignKey(Product,on_delete=models.CASCADE)
