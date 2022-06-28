@@ -1,0 +1,46 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block content %}
+
+<section class="food-menu">
+    <div class="container">
+        <h2 class="text-center" style="color: #ff4757">{{ cat.name }}</h2>
+        <form method="POST" action="/confirm-order-by-category/{{ cat.id }}">
+            {% csrf_token %}
+        {% for victual in victuals %}
+            <div class="food-menu-box">
+                <div class="food-menu-img">
+                    <img src="{{ victual.image_path.url }}" alt="{{ victual.name }}" class="img-responsive img-curve">
+                </div>
+
+                <div class="food-menu-desc">
+                    <h4 name="victual-name-{{ victual.id }}">{{ victual.name }}</h4>
+                    <p class="food-price">{{ victual.price }}</p>
+                    <p class="food-detail">
+                        {{ victual.desc }}
+                    </p>
+                    <label for="qty">Select Quantity :</label>
+                    <select id="qty" name="qty-{{ victual.id }}">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                </div>
+            </div>
+        {% endfor %}
+            <button type="submit" class="btn btn-primary">Comfirm Order</button>
+        </form>
+        <div class="clearfix"></div>
+    </div>
+</section>
+
+{% endblock content %}

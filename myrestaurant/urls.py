@@ -15,9 +15,32 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from Restaurant.settings import MIDDLEWARE
 from myrestaurant import views
 
+from django.conf import settings
+from django.conf.urls.static import static
+
 urlpatterns = [
-    path('test/',views.test,name='test'),
-    path('home/',views.home,name='home'),
+    path('login/',views.log_in,name="login"),
+    path('logout/',views.log_out,name="logout"),
+
+    #path('test/',views.test,name='test'),
+    path('',views.home,name='home'),
+    path('category/',views.category,name='category'),
+    path('food/',views.food,name='food'),
+    path('food/order/<id>',views.order,name='order'),
+    path('food/orders/confirm-order/',views.orderList,name='orderList'),
+    path('food/orders/show-order',views.showOrder,name="showOrder"),
+    path('delete/<int:id>',views.deleteItem,name="deleteItem"),
+    path('category/<id>',views.showByCategory,name="showByCategory"),
+    path('confirm-order-by-category/<id>',views.confirmOrderByCategory),
+    path('checkout',views.checkout,name="checkout"),
+
+    path('admin-dashboard/',views.dashboard,name='admin-dashboard'),
 ]
+MIDDLEWARE = [path('test/',views.test,name='test')]
+
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

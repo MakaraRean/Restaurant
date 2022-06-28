@@ -10,6 +10,48 @@
 
     <!-- Link our CSS file -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
+    <script src="https://kit.fontawesome.com/e806390136.js" crossorigin="anonymous"></script>
+
+
+    <style>
+        .dropbtn {
+          background-color: #ff4757;
+          color: white;
+          padding: 16px;
+          font-size: 16px;
+          border: none;
+        }
+        
+        .dropdown {
+          position: relative;
+          display: inline-block;
+        }
+        
+        .dropdown-content {
+          display: none;
+          position: absolute;
+          background-color: #f1f1f1;
+          min-width: 160px;
+          box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+          z-index: 1;
+        }
+        
+        .dropdown-content a {
+          color: black;
+          padding: 12px 16px;
+          text-decoration: none;
+          display: block;
+        }
+        
+        .dropdown-content a:hover {background-color: #ddd;
+        }
+        
+        .dropdown:hover .dropdown-content {display: block;}
+        
+        .dropdown:hover .dropbtn {background-color: #c52d39;}
+        </style>
+    {% comment %} <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> {% endcomment %}
 </head>
 
 <body>
@@ -18,24 +60,51 @@
         <section class="navbar">
             <div class="container">
                 <div class="logo">
-                    <a href="#" title="Logo">
+                    <a href="{% url 'home' %}" title="Logo">
                         <img src="{% static 'images/logo.png' %} " alt="Restaurant Logo" class="img-responsive">
                     </a>
                 </div>
 
                 <div class="menu text-right">
                     <ul>
+                        {% if request.user.is_authenticated %}
+                        <div class="dropdown">
+                            <button class="dropbtn">Wellcome, <b>{{ user.username }}</button>
+                            <div class="dropdown-content">
+                                <a href="{% url 'logout' %}">Log out</a>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% if messages %}
+                            <ul class="messages">
+                                {% for message in messages %}
+                                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
                         <li>
                             <a href="{% url 'home' %}">Home</a>
                         </li>
                         <li>
-                            <a href="categories.html">Categories</a>
+                            <a href="{% url 'category' %}">Categories</a>
                         </li>
                         <li>
-                            <a href="foods.html">Foods</a>
+                            <a href="{% url 'food' %}">Foods</a>
                         </li>
                         <li>
-                            <a href="#">Contact</a>
+                            <a href="{% url 'showOrder' %}">Show Orders
+                                <span class="badge badge-light" style="color: white;
+                            background-color: red; display: inline-block;
+                            padding: .25em .4em;
+                            font-size: 75%;
+                            font-weight: 700;
+                            line-height: 1;
+                            text-align: center;
+                            white-space: nowrap;
+                            vertical-align: baseline;
+                            border-radius: .50rem;">{{ cartItem.id__count }}</span>
+                            </a>
+                            
                         </li>
                     </ul>
                 </div>
@@ -48,6 +117,8 @@
 
     {% block content %}
     {% endblock %}
+
+    {% block script %}{% endblock %}
 
 </body>
 </html>
