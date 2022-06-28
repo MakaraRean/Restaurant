@@ -43,90 +43,128 @@ def home(request):
         context = {'victuals': victual,'categories' : category, 'cartItem' : cartItem}
         return render(request,'home.html',context)
     else:
-        return render(request,'test.html')
+        messages.error(request, "You're not login, you need to login first.")
+        return redirect(log_in)
 
 def order(request, id ):
-    victuals = Victual.objects.get(id = id)
-    return render(request,'order.html',{'victual' : victuals})
+    if request.user.is_authenticated:
+        victuals = Victual.objects.get(id = id)
+        return render(request,'order.html',{'victual' : victuals})
+    else:
+        messages.error(request, "You're not login, you need to login first.")
+        return redirect(log_in)
 
 def category(request):
-    category = Category.objects.all()
-    cartItem = OrderItem.objects.aggregate(Count('id'))
-    return render(request,'category.html',{'categories' : category, 'cartItem' : cartItem})
+    if request.user.is_authenticated:
+        category = Category.objects.all()
+        cartItem = OrderItem.objects.aggregate(Count('id'))
+        return render(request,'category.html',{'categories' : category, 'cartItem' : cartItem})
+    else:
+        messages.error(request, "You're not login, you need to login first.")
+        return redirect(log_in)
 
 def dashboard(request):
     return render(request,'admin/index.html')
 
 def food(request):
-    victuals = Victual.objects.all()
-    cartItem = OrderItem.objects.aggregate(Count('id'))
-    return render(request,'food.html',{'victuals' : victuals, 'cartItem' : cartItem})
+    if request.user.is_authenticated:
+        victuals = Victual.objects.all()
+        cartItem = OrderItem.objects.aggregate(Count('id'))
+        return render(request,'food.html',{'victuals' : victuals, 'cartItem' : cartItem})
+    else:
+        messages.error(request, "You're not login, you need to login first.")
+        return redirect(log_in)
 
 def orderList(request):
-    if request.method == 'POST':
-        victuals = Victual.objects.all()
-        for victual in victuals:
-            name = "qty-"
-            qty = name + str(victual.id)
-            valueQty = request.POST[qty]
-            cart = Cart()
-            # Add to list or database
-            if int(valueQty) > 0:
-                orderItem = OrderItem()
-                orderItem.name = victual.name
-                orderItem.qty = valueQty
-                orderItem.price = victual.price
-                orderItem.amount = (float(orderItem.qty) * orderItem.price)
-                orderItem.image_path = victual.image_path
-                orderItem.victual_id = victual.id
-                orderItem.save()
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            victuals = Victual.objects.all()
+            for victual in victuals:
+                name = "qty-"
+                qty = name + str(victual.id)
+                valueQty = request.POST[qty]
+                cart = Cart()
+                # Add to list or database
+                if int(valueQty) > 0:
+                    orderItem = OrderItem()
+                    orderItem.name = victual.name
+                    orderItem.qty = valueQty
+                    orderItem.price = victual.price
+                    orderItem.amount = (float(orderItem.qty) * orderItem.price)
+                    orderItem.image_path = victual.image_path
+                    orderItem.victual_id = victual.id
+                    orderItem.user_id = request.user.id
+                    orderItem.save()
 
-        messages.success(request, "Items added to Cart.")
-        return redirect(home)
+            messages.success(request, "Items added to Cart.")
+            return redirect(home)
+    else:
+        messages.error(request, "You're not login, you need to login first.")
+        return redirect(log_in)
 
 def showOrder(request):
-    orderItems = OrderItem.objects.all()
-    total = OrderItem.objects.aggregate(Sum('amount'))
-    cartItem = OrderItem.objects.aggregate(Count('id'))
-    return render(request,'showOrder.html',{'orderItems' : orderItems,'total' : total, 'cartItem' : cartItem})
+    if request.user.is_authenticated:
+        orderItems = OrderItem.objects.filter(user_id = request.user.id)
+        total = OrderItem.objects.aggregate(Sum('amount'))
+        cartItem = OrderItem.objects.aggregate(Count('id'))
+        return render(request,'showOrder.html',{'orderItems' : orderItems,'total' : total, 'cartItem' : cartItem})
+    else:
+        messages.error(request, "You're not login, you need to login first.")
+        return redirect(log_in)
             
 def deleteItem(request, id):
-    item = OrderItem.objects.get(pk = id)
-    item.delete()
-    messages.success(request, "An item has been remove from cart.")
-    return HttpResponseRedirect(reverse('showOrder'))
+    if request.user.is_authenticated:
+        item = OrderItem.objects.get(pk = id)
+        item.delete()
+        messages.success(request, "An item has been remove from cart.")
+        return HttpResponseRedirect(reverse('showOrder'))
+    else:
+        messages.error(request, "You're not login, you need to login first.")
+        return redirect(log_in)
 
 def showByCategory(request, id):
-    cartItem = OrderItem.objects.aggregate(Count('id'))
-    cat = Category.objects.get(pk = id)
-    victual = Victual.objects.filter(category_id = id)
-    return render(request,'show-by-category.html',{'victuals' : victual, 'cat' : cat, 'cartItem' : cartItem})
+    if request.user.is_authenticated:
+        cartItem = OrderItem.objects.aggregate(Count('id'))
+        cat = Category.objects.get(pk = id)
+        victual = Victual.objects.filter(category_id = id)
+        return render(request,'show-by-category.html',{'victuals' : victual, 'cat' : cat, 'cartItem' : cartItem})
+    else:
+        messages.error(request, "You're not login, you need to login first.")
+        return redirect(log_in)
 
 def confirmOrderByCategory(request, id):
-    if request.method == 'POST':
-        victuals = Victual.objects.filter(category_id = id)
-        for victual in victuals:
-            name = "qty-"
-            qty = name + str(victual.id)
-            valueQty = request.POST[qty]
-            cart = Cart()
-            # Add to list or database
-            if int(valueQty) > 0:
-                orderItem = OrderItem()
-                orderItem.name = victual.name
-                orderItem.qty = valueQty
-                orderItem.price = victual.price
-                orderItem.amount = (float(orderItem.qty) * orderItem.price)
-                orderItem.image_path = victual.image_path
-                orderItem.victual_id = victual.id
-                orderItem.save()
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            victuals = Victual.objects.filter(category_id = id)
+            for victual in victuals:
+                name = "qty-"
+                qty = name + str(victual.id)
+                valueQty = request.POST[qty]
+                cart = Cart()
+                # Add to list or database
+                if int(valueQty) > 0:
+                    orderItem = OrderItem()
+                    orderItem.name = victual.name
+                    orderItem.qty = valueQty
+                    orderItem.price = victual.price
+                    orderItem.amount = (float(orderItem.qty) * orderItem.price)
+                    orderItem.image_path = victual.image_path
+                    orderItem.victual_id = victual.id
+                    orderItem.save()
 
-        messages.success(request, "Items added to Cart.")
-        return redirect(home)
+            messages.success(request, "Items added to Cart.")
+            return redirect(home)
+    else:
+        messages.error(request, "You're not login, you need to login first.")
+        return redirect(log_in)
 
 def checkout(request):
-    if request.method == 'POST':
-        order = Order()
-        orderDetial = OrderDetail()
-        total = 0.0
-    return True
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            order = Order()
+            orderDetial = OrderDetail()
+            total = 0.0
+        return True
+    else:
+        messages.error(request, "You're not login, you need to login first.")
+        return redirect(log_in)
