@@ -24,10 +24,10 @@ class Category(models.Model):
         return f"{self.name}"
 
 class Victual(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=255)
     price = models.FloatField()
     desc = models.TextField(null=True,blank=True)
-    image_path = models.FileField()
+    image_path = models.ImageField(default='media/no_image.jpg',null=True,upload_to='')
     active = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now=True)
     category = models.ForeignKey(Category,on_delete=models.CASCADE)
@@ -128,11 +128,10 @@ class Order(models.Model):
     table = models.ForeignKey(Table,on_delete=models.CASCADE)
 
 class OrderDetail(models.Model):
-    amount = models.FloatField()
+    price = models.FloatField()
     qty = models.IntegerField()
     order = models.ForeignKey(Order,on_delete=models.CASCADE)
-    category = models.ForeignKey(Category,on_delete=models.CASCADE)
-    product = models.ForeignKey(Victual,on_delete=models.CASCADE)
+    victual = models.ForeignKey(Victual,on_delete=models.CASCADE)
 
 class OrderItem(models.Model):
     name = models.CharField(max_length=100)

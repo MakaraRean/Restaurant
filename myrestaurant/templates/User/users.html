@@ -1,0 +1,36 @@
+{% block content %}
+{% load static %}
+{% include 'menu.html' %}
+    <link rel="stylesheet" href="{% static 'css/table.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/button.css' %}">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <title>User</title>
+
+
+    <div class="table-container" style="max-width: 500px;">
+     <h2>User List</h2>
+     <a href="{% url 'createUser' %}" class="button-24" role="button" style="margin:0 0 20px 0 ">Add User</a>
+          <ul class="responsive-table">
+            <li class="table-header">
+              <div class="tcol tcol-1">ID</div>
+              <div class="tcol tcol-2">Full Name</div>
+              <div class="tcol tcol-4">Username</div>
+              <div class="tcol tcol-9">Action</div>
+            </li>
+                {% for user in users %}
+                  <li class="table-row">
+                      <div class="tcol tcol-1">{{ user.id }}</div>
+                      <div class="tcol tcol-2">{{ user.full_name }}</div>
+                      <div class="tcol tcol-4">{{ user.username }}</div>
+                      <div class="tcol tcol-9" data-label="Payment Status">
+                          <a href="/editrow/{{ user.id }}"><ion-icon style="font-size: 18px" src="{% static 'images/Icon/create-outline.svg' %}"></ion-icon></a>
+                          <a href="/deleterow/{{ user.id }}"><ion-icon style="font-size: 18px" src="{% static 'images/Icon/trash-outline.svg' %}"></ion-icon></a>
+                      </div>
+                  </li>
+              {% endfor %}
+          </ul>
+    </div>
+    {% include 'footer.html' %}
+{% endblock %}

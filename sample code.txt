@@ -1,0 +1,7 @@
+# check if user has login and user is admin (control user)
+    if request.user.is_authenticated and request.user.isAdmin == False:
+        # block code for normal users
+    elif request.user.isAdmin:
+        # block code for admin user
+    else:
+        # block code for anounymouse user (user not login)

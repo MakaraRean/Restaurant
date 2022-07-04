@@ -1,113 +1,125 @@
-/* 
-    Author: Vijay Thapa;
-    Theme: Restaurant Food Order;
-    version: 1.0;
-*/
-
-/* CSS for All */
-.input-qty {
-    border: none;
-    border-radius: 50%;
-}
-
-.nav {
-    position: fixed;
-}
-
-* {
+*{
     margin: 0 0;
     padding: 0 0;
     font-family: Arial, Helvetica, sans-serif;
 }
-
-.container {
+.wrapper{
+    padding: 0.5%;
+    width: 70%;
+    margin: 0 auto;
+}
+.container{
     width: 80%;
     margin: 0 auto;
     padding: 1%;
 }
-
-.img-responsive {
+.img-responsive{
     width: 100%;
 }
-
-.img-curve {
+.img-curve{
     border-radius: 15px;
 }
 
-.text-right {
+.text-right{
     text-align: right;
 }
-
-.text-center {
+.text-center{
     text-align: center;
 }
-
-.text-left {
+.text-left{
     text-align: left;
 }
-
-.text-white {
-    color: white;
+.text-white{
+    color: black;
 }
 
-.clearfix {
+.clearfix{
     clear: both;
     float: none;
 }
+.tbl-full{
+    width: 100%;
+}
+table tr th{
+    border-bottom: 1px solid black;
+    padding: 1%;
+    text-align: left;
 
-a {
-    color: #ff6b81;
-    text-decoration: none;
+}
+table tr td{
+    padding: 1%;
 }
 
-a:hover {
+a{
     color: #ff4757;
-}
-
-.text-color {
-    color: #ff6b81;
     text-decoration: none;
+
+}
+a:hover{
+    color: #ff8f9a;
 }
 
-.btn {
+.btn{
     padding: 1%;
     border: none;
     font-size: 1rem;
     border-radius: 5px;
 }
-
-.btn-primary {
-    background-color: #ff6b81;
+.btn-primary{
+    background-color: #1e90ff;
+    padding: 1%;
     color: white;
     cursor: pointer;
-}
+    font-weight: bold;
+    margin-top: 100px;
+    /*margin-bottom: 20px;*/
 
-.btn-primary:hover {
+}
+.btn-primary:hover{
+    background-color: #3742fa;
     color: white;
-    background-color: #ff4757;
 }
-
-h2 {
-    color: #2f3542;
+.btn-secondary{
+    padding: 5px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+.btn-secondary:hover{
+    background-color: #3742fa;
+}
+.btn-danger{
+    background-color: red;
+    padding: 5px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+.btn-danger:hover{
+    background-color: #3742fa;
+}
+h1{
+    color: black;
     font-size: 2rem;
-    margin-bottom: 2%;
 }
-
-h3 {
+h2{
+    color: #2f3542;
+    font-size:24px;
+    margin-bottom: 20px;
+    font-family: "lato", sans-serif;
+}
+h3{
     font-size: 1.5rem;
 }
-
-.float-container {
+.float-container{
     position: relative;
 }
-
-.float-text {
+.float-text{
     position: absolute;
     bottom: 50px;
     left: 40%;
 }
-
-fieldset {
+fieldset{
     border: 1px solid white;
     margin: 5%;
     padding: 3%;
@@ -117,29 +129,55 @@ fieldset {
 
 /* CSSS for navbar section */
 
-.logo {
+.logo{
     width: 10%;
     float: left;
+    margin-left: 40px;
 }
-
-.menu {
-    line-height: 60px;
+.menu{
+    width: 100%;
+    border-bottom: 1px solid grey;
+    border-bottom: 1px solid #999;
+    padding-top: 15px;
 }
-
-.menu ul {
+.menu ul{
     list-style-type: none;
 }
 
-.menu ul li {
+.menu ul li{
     display: inline;
     padding: 1%;
+}
+.menu ul li a{
+    text-decoration: none;
     font-weight: bold;
+    font-size: 16px;
+    color:  #b87e40;
+}
+.menu ul li a:hover{
+    color: #ff4757;
+}
+.col-4{
+    width: 18%;
+    background-color: white;
+    margin: 1%;
+    padding: 2%;
+    float: left;
+}
+.footer{
+    background-color: #95a5a6;
+    color: black;
 }
 
+/* CSS for main-content */
+.main-content{
+    padding: 3% 0;
+    background-color: #f1f2f6;
+}
 
 /* CSS for Food SEarch Section */
 
-.food-search {
+.food-search{
     background-image: url(../images/bg.jpg);
     background-size: cover;
     background-repeat: no-repeat;
@@ -147,7 +185,7 @@ fieldset {
     padding: 7% 0;
 }
 
-.food-search input[type="search"] {
+.food-search input[type="search"]{
     width: 50%;
     padding: 1%;
     font-size: 1rem;
@@ -157,11 +195,11 @@ fieldset {
 
 
 /* CSS for Categories */
-.categories {
+.categories{
     padding: 4% 0;
 }
 
-.box-3 {
+.box-3{
     width: 28%;
     float: left;
     margin: 2%;
@@ -169,12 +207,11 @@ fieldset {
 
 
 /* CSS for Food Menu */
-.food-menu {
+.food-menu{
     background-color: #ececec;
     padding: 4% 0;
 }
-
-.food-menu-box {
+.food-menu-box{
     width: 43%;
     margin: 1%;
     padding: 2%;
@@ -183,45 +220,42 @@ fieldset {
     border-radius: 15px;
 }
 
-.food-menu-img {
+.food-menu-img{
     width: 20%;
     float: left;
 }
 
-.food-menu-desc {
+.food-menu-desc{
     width: 70%;
     float: left;
     margin-left: 8%;
 }
 
-.food-price {
+.food-price{
     font-size: 1.2rem;
     margin: 2% 0;
 }
-
-.food-detail {
+.food-detail{
     font-size: 1rem;
     color: #747d8c;
 }
 
 
 /* CSS for Social */
-.social ul {
+.social ul{
     list-style-type: none;
 }
-
-.social ul li {
+.social ul li{
     display: inline;
     padding: 1%;
 }
 
 /* for Order Section */
-.order {
+.order{
     width: 50%;
     margin: 0 auto;
 }
-
-.input-responsive {
+.input-responsive{
     width: 96%;
     padding: 1%;
     margin-bottom: 3%;
@@ -229,208 +263,95 @@ fieldset {
     border-radius: 5px;
     font-size: 1rem;
 }
-
-.order-label {
+.order-label{
     margin-bottom: 1%;
     font-weight: bold;
 }
 
 
-
-.delete-btn {
-    float: right;
-}
-
-.panel {
-    margin-right: 20px;
-    background-color: #ff4757;
-}
-
-.badge {
-    display: inline-block;
-    padding: .25em .4em;
-    font-size: 75%;
-    font-weight: 700;
-    line-height: 1;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: baseline;
-    border-radius: .25rem
-}
-
-.badge:empty {
-    display: none
-}
-
-.btn .badge {
-    position: relative;
-    top: -1px
-}
-
-.badge-pill {
-    padding-right: .6em;
-    padding-left: .6em;
-    border-radius: 10rem
-}
-
-.badge-primary {
-    color: #fff;
-    background-color: #007bff
-}
-
-.badge-primary[href]:focus,
-.badge-primary[href]:hover {
-    color: #fff;
-    text-decoration: none;
-    background-color: #0062cc
-}
-
-.badge-secondary {
-    color: #fff;
-    background-color: #6c757d
-}
-
-.badge-secondary[href]:focus,
-.badge-secondary[href]:hover {
-    color: #fff;
-    text-decoration: none;
-    background-color: #545b62
-}
-
-.badge-success {
-    color: #fff;
-    background-color: #28a745
-}
-
-.badge-success[href]:focus,
-.badge-success[href]:hover {
-    color: #fff;
-    text-decoration: none;
-    background-color: #1e7e34
-}
-
-.badge-info {
-    color: #fff;
-    background-color: #17a2b8
-}
-
-.badge-info[href]:focus,
-.badge-info[href]:hover {
-    color: #fff;
-    text-decoration: none;
-    background-color: #117a8b
-}
-
-.badge-warning {
-    color: #212529;
-    background-color: #ffc107
-}
-
-.badge-warning[href]:focus,
-.badge-warning[href]:hover {
-    color: #212529;
-    text-decoration: none;
-    background-color: #d39e00
-}
-
-.badge-danger {
-    color: #fff;
-    background-color: #dc3545
-}
-
-.badge-danger[href]:focus,
-.badge-danger[href]:hover {
-    color: #fff;
-    text-decoration: none;
-    background-color: #bd2130
-}
-
-.badge-light {
-    color: #212529;
-    background-color: #f8f9fa;
-}
-
-.badge-light[href]:focus,
-.badge-light[href]:hover {
-    color: #212529;
-    text-decoration: none;
-    background-color: #dae0e5
-}
-
-.badge-dark {
-    color: #fff;
-    background-color: #343a40
-}
-
-.badge-dark[href]:focus,
-.badge-dark[href]:hover {
-    color: #fff;
-    text-decoration: none;
-    background-color: #1d2124
-}
-
-
-
 /* CSS for Mobile Size or Smaller Screen */
 
-@media only screen and (max-width:768px) {
-    .logo {
+@media only screen and (max-width:768px){
+    .logo{
         width: 80%;
         float: none;
         margin: 1% auto;
     }
 
-    .menu ul {
+    .menu ul{
         text-align: center;
     }
 
-    .food-search input[type="search"] {
+    .food-search input[type="search"]{
         width: 90%;
         padding: 2%;
         margin-bottom: 3%;
     }
 
-    .btn {
+    .btn{
         width: 91%;
         padding: 2%;
     }
 
-    .food-search {
+    .food-search{
         padding: 10% 0;
     }
 
-    .categories {
+    .categories{
         padding: 20% 0;
     }
-
-    h2 {
+    h2{
         margin-bottom: 10%;
     }
-
-    .box-3 {
+    .box-3{
         width: 100%;
         margin: 4% auto;
     }
 
-    .food-menu {
+    .food-menu{
         padding: 20% 0;
     }
 
-    .food-menu-box {
+    .food-menu-box{
         width: 90%;
         padding: 5%;
         margin-bottom: 5%;
     }
-
-    .social {
+    .social{
         padding: 5% 0;
     }
-
-    .order {
+    .order{
         width: 100%;
     }
-
-
-
-
 }
+/* message Alert */
+.info-msg,
+.success-msg,
+.warning-msg,
+.error-msg {
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 3px 3px 3px 3px;
+}
+.info-msg {
+  color: #059;
+  background-color: #BEF;
+}
+.success-msg {
+  color: #270;
+  background-color: #DFF2BF;
+}
+.warning-msg {
+  color: #9F6000;
+  background-color: #FEEFB3;
+}
+.error-msg {
+  color: #D8000C;
+  background-color: #FFBABA;
+}
+
+
+
+
+
+

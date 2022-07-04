@@ -1,0 +1,59 @@
+<!-- css -->
+{% block content %}
+
+{% include 'adminOnly/menu.html' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/admincss/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/admincss/button.css' %}">
+
+<!-- Main Content Section Starts -->
+<div class="main-content">
+    <div class="wrapper">
+        {% include 'adminOnly/message.html' %}
+        <h1>Manage User</h1>        <!-- Button to Add Admin -->
+        <a href="{% url 'createUser' %}" class="button-24" role="button">New User</a>
+        <br><br>
+        <table class="tbl-full">
+            <tr>
+                <th>ID</th>
+                <th>Full Name</th>
+                <th>UserName</th>
+                <th>Actions</th>
+
+            </tr>
+            {% for user in users %}
+                <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.full_name }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>
+                            <a href="editrow/{{ user.id }}" class="btn-secondary button-21"  role="button">Modify User</a>
+                            <a href="deleterow/{{ user.id }}" class="btn-danger button-21" style="background-color: red; background-image: none;"  role="button">Delete User</a>
+                        </td>
+                </tr>
+             {% endfor %}
+        </table>
+    </div>
+</div>
+ <!-- social Section Starts Here -->
+<section class="social">
+    <div class="container text-center">
+        <ul>
+            <li>
+                <a href="#"><img src="https://img.icons8.com/fluent/50/000000/facebook-new.png"/></a>
+            </li>
+            <li>
+                <a href="#"><img src="https://img.icons8.com/fluent/48/000000/instagram-new.png"/></a>
+            </li>
+            <li>
+                <a href="#"><img src="https://img.icons8.com/fluent/48/000000/twitter.png"/></a>
+            </li>
+        </ul>
+    </div>
+</section>
+<!-- social Section Ends Here -->
+<!-- footer Section Starts Here -->
+{% comment %} {% include 'footer.html' %} {% endcomment %}
+<!-- footer Section Ends Here -->
+
+{% endblock %}

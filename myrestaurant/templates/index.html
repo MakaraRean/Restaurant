@@ -10,17 +10,19 @@
 
     <!-- Link our CSS file -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
+    
     <script src="https://kit.fontawesome.com/e806390136.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
 
 
     <style>
         .dropbtn {
-          background-color: #ff4757;
+          background-color: #b87e40;
           color: white;
           padding: 16px;
           font-size: 16px;
           border: none;
+          border-radius: .5rem;
         }
         
         .dropdown {
@@ -31,10 +33,11 @@
         .dropdown-content {
           display: none;
           position: absolute;
-          background-color: #f1f1f1;
+          background-color: #dba061;
           min-width: 160px;
           box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
           z-index: 1;
+          border-radius: .5rem;
         }
         
         .dropdown-content a {
@@ -42,14 +45,19 @@
           padding: 12px 16px;
           text-decoration: none;
           display: block;
+          border-radius: .5rem;
         }
         
-        .dropdown-content a:hover {background-color: #ddd;
+        .dropdown-content a:hover {background-color: #ddd;color: rgba(255, 0, 0, 0.959);
         }
         
         .dropdown:hover .dropdown-content {display: block;}
         
-        .dropdown:hover .dropbtn {background-color: #c52d39;}
+        .dropdown:hover .dropbtn {background-color: #a76826;}
+
+        {% block css %}
+        {% endblock css %}
+        
         </style>
     {% comment %} <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> {% endcomment %}
 </head>

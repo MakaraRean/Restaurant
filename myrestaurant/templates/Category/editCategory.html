@@ -1,0 +1,56 @@
+{% load  static %}
+{% block content %}
+
+{% include 'menu.html' %}
+<link rel="stylesheet" href="{% static 'css/style.css'%}">
+<link rel="stylesheet" href="{% static 'css/button.css' %}">
+<link rel="stylesheet" href="{% static 'css/textField.css' %}">
+<script src="https://kit.fontawesome.com/e806390136.js" crossorigin="anonymous"></script>
+<div class="main-content">
+    <div class="wrapper">
+       
+        <h1>Modefy Category</h1>
+
+        <form action="/updateCat/{{ cats.id }}" method="POST" enctype="multipart/form-data"> 
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <div class="form" >
+                        <input type="text" name="name" value="{{ cats.name }}" autocomplete="off" required />
+                        <label for="text" class="label-name">
+                            <span class="content-name">
+                              Category Name
+                            </span>
+                        </label>
+                    </div>
+                </tr>
+                <tr>
+                    <div class="form" style="margin-top: 10px;">
+                        <label for="text" class="label-name" >Image</label><br>
+                        <input type="file" name="image_path" value="{{ cats.image_path }}" autocomplete="off" required />
+                    </div>
+                </tr>
+
+                 <tr>
+                    <div class="form">
+                        <input type="text" name="desc" value="{{ cats.desc }}" autocomplete="off" />
+                        <label for="text" class="label-name">
+                            <span class="content-name">
+                              Description
+                            </span>
+                        </label>
+                    </div>
+                </tr>
+
+                <tr>
+                    <td><input type="submit" name="submit" value="Save" class="button-24"></td>
+                </tr>
+            </table>
+
+        </form>
+    </div>
+</div>
+
+{% include 'footer.html' %}
+{% endblock %}
+

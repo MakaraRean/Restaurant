@@ -1,0 +1,55 @@
+{% block content %}
+{% load static %}
+{% include 'menu.html' %}
+    <style>
+        .active{
+        height: 25px;
+        width: 25px;
+        background-color: green;
+        border-radius: 50%;
+        display: inline-block;
+        }
+    </style>
+    <link rel="stylesheet" href="{% static 'css/table.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/button.css' %}">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <title>Food</title>
+
+
+    <div class="table-container">
+     <h2>Food List</h2>
+     <a href="{% url 'createFood' %}" class="button-24" role="button" style="margin:0 0 20px 0 ">Add Victuals</a>
+          <ul class="responsive-table">
+            <li class="table-header">
+              <div class="tcol tcol-1">ID</div>
+              <div class="tcol tcol-2">Victual Name</div>
+              <div class="tcol tcol-3">Price</div>
+              <div class="tcol tcol-4">Description</div>
+              <div class="tcol tcol-5">Image</div>
+              <div class="tcol tcol-5">Active</div>
+              <div class="tcol tcol-7">Create At</div>
+              <div class="tcol tcol-8">Category</div>
+              <div class="tcol tcol-9">Action</div>
+            </li>
+              {% for food in foods %}
+                  <li class="table-row">
+                      <div class="tcol tcol-1" data-label="Job Id">{{ food.id }}</div>
+                      <div class="tcol tcol-2" data-label="Customer Name">{{ food.name }}</div>
+                      <div class="tcol tcol-3" data-label="Amount">{{ food.price }}</div>
+                      <div class="tcol tcol-4" data-label="Payment Status">{{ food.desc }}</div>
+                      <div class="tcol tcol-5" data-label="Job Id"><img src="{{ food.image_path.url }}" width="50px" ></div>
+                      <div class="tcol tcol-5" data-label="Customer Name">{{ food.active }}</div>
+                      <div class="tcol tcol-7" data-label="Amount">{{ food.created_at }}</div>
+                      <div class="tcol tcol-8" data-label="Payment Status">{{ food.category.name }}</div>
+                      <div class="tcol tcol-9" data-label="Payment Status">
+                          <a href="/editFood/{{ food.id }}"><ion-icon style="font-size: 18px" src="{% static 'images/Icon/create-outline.svg' %}"></ion-icon></a>
+                          <a href="/deleteFood/{{ food.id }}"><ion-icon style="font-size: 18px" src="{% static 'images/Icon/trash-outline.svg' %}"></ion-icon></a>
+                      </div>
+                  </li>
+              {% endfor %}
+          </ul>
+    </div>
+        {% include 'footer.html' %}
+{% endblock %}

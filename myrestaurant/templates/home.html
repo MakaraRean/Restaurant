@@ -1,3 +1,4 @@
+
 {% extends 'index.html' %}
 {% load static %}
 
@@ -47,7 +48,8 @@
             <form method="POST" action="{% url 'orderList' %}">
                 {% csrf_token %}
                 <div style="margin-bottom: 25px">
-                <button type="submit" class="btn btn-primary">Comfirm Order</button>
+                <button type="submit" class="btn btn-primary"><i class="fa-regular fa-circle-check"></i> Comfirm Order</button>
+                <button type="reset" class="btn btn-primary"><i class="fa-solid fa-arrow-rotate-left"></i> Reset Order</button>
                 </div
                 <br>
             {% for victual in victuals %}

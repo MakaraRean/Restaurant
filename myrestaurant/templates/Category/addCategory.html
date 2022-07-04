@@ -1,0 +1,54 @@
+{% load  static %}
+{% block content %}
+
+{% include 'menu.html' %}
+<link rel="stylesheet" href="{% static 'css/style.css'%}">
+<link rel="stylesheet" href="{% static 'css/button.css' %}">
+<link rel="stylesheet" href="{% static 'css/textField.css' %}">
+<div class="main-content">
+    <div class="wrapper">
+        <h1>Add Category</h1>
+
+        <form action="{% url 'addcategory' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <div class="form" >
+                        <input type="text" name="name" autocomplete="off" required />
+                        <label for="text" class="label-name">
+                            <span class="content-name">
+                              Category Name
+                            </span>
+                        </label>
+                    </div>
+                </tr>
+                <tr>
+                    <div class="form" style="margin-top: 10px;">
+                        <label for="text" class="label-name" >Image</label><br>
+                        <input type="file" name="image_path" autocomplete="off" required />
+                    </div>
+                </tr>
+
+                 <tr>
+                    <div class="form">
+                        <input type="text" name="desc" autocomplete="off" />
+                        <label for="text" class="label-name">
+                            <span class="content-name">
+                              Description
+                            </span>
+                        </label>
+                    </div>
+                </tr>
+
+                <tr>
+                    <td><input type="submit" name="submit" value="Add" class="button-24"></td>
+                </tr>
+            </table>
+
+        </form>
+    </div>
+</div>
+
+{% include 'footer.html' %}
+{% endblock %}
+

@@ -3,32 +3,63 @@
 
 {% block content %}
 
-    <section class="food-menu">
-        <div class="container">
-            <h2 class="text-center">Food Menu</h2>
-            {% for victual in victuals %}
-                <div class="food-menu-box">
-                    <div class="food-menu-img">
-                        <img src="{{ victual.image_path.url }}" alt="{{ victual.name }}" class="img-responsive img-curve">
-                    </div>
-
-                    <div class="food-menu-desc">
-                        <h4>{{ victual.name }}</h4>
-                        <p class="food-price">{{ victual.price }}</p>
-                        <p class="food-detail">
-                            {{ victual.desc }}
-                        </p>
-                        <br>
-
-                        <a href="order.html" class="btn btn-primary">Order Now</a>
-                    </div>
+<section class="food-menu">
+    <div class="container">
+        <h2 class="text-center">Food Menu</h2>
+        <form method="POST" action="{% url 'orderList' %}">
+            {% csrf_token %}
+            <div style="margin-bottom: 25px">
+            <button type="submit" class="btn btn-primary"><i class="fa-regular fa-circle-check"></i> Comfirm Order</button>
+            <button type="reset" class="btn btn-primary"><i class="fa-solid fa-arrow-rotate-left"></i> Reset Order</button>
+            </div
+            <br>
+        {% for victual in victuals %}
+            <div class="food-menu-box">
+                <div class="food-menu-img">
+                    <img src="{{ victual.image_path.url }}" alt="{{ victual.name }}" class="img-responsive img-curve">
                 </div>
-            {% endfor %}
 
-            <div class="clearfix"></div>
-        </div>
-    </section>
+                <div class="food-menu-desc">
+                    <h4 name="victual-name-{{ victual.id }}">{{ victual.name }}</h4>
+                    <p class="food-price">{{ victual.price }}</p>
+                    <p class="food-detail">
+                        {{ victual.desc }}
+                    </p>
+                    <label for="qty">Select Quantity :</label>
+                    <select id="qty" name="qty-{{ victual.id }}">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                    {% comment %} <input type="number" name="qty-{{ victual.id }}" value="0" min="0" required> {% endcomment %}
+                    <br>
 
+                    {% comment %} <a href="food/order/{{ victual.id }}" class="btn btn-primary">Order Now</a> {% endcomment %}
+                    {% comment %} <div>
+                        <i class="fa-solid fa-minus"></i>
+                        <input type="number" class="input-qty" value="1" readonly>
+                        <i class="fa-solid fa-plus"></i>
+                    </div> {% endcomment %}
+                </div>
+            </div>
+            
+        {% endfor %}
+        </form>
+        <div class="clearfix"></div>
+    </div>
+
+    <p class="text-center">
+        <a href="#">See All Foods</a>
+    </p>
+</section>
     <!-- social Section Starts Here -->
     <section class="social">
         <div class="container text-center">

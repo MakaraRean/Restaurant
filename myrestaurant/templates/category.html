@@ -5,10 +5,10 @@
     <!-- CAtegories Section Starts Here -->
     <section class="categories">
         <div class="container">
-            <h2 class="text-center">Explore Foods</h2>
+            <h2 class="text-center" style="color: #ff4757;">Explore Categories</h2>
 
             {% for category in categories %}
-            <a href="/myfood/catFoods">
+            <a href="/category/{{ category.id }}">
             <div class="box-3 float-container">
                 <img src="{{ category.image_path.url }}" alt="{{ category.name }}" class="img-responsive img-curve" width="200px" height="300px">
 
@@ -22,22 +22,4 @@
     </section>
     <!-- Categories Section Ends Here -->
 
-
-    <!-- social Section Starts Here -->
-    <section class="social">
-        <div class="container text-center">
-            <ul>
-                <li>
-                    <a href="#"><img src="https://img.icons8.com/fluent/50/000000/facebook-new.png"/></a>
-                </li>
-                <li>
-                    <a href="#"><img src="https://img.icons8.com/fluent/48/000000/instagram-new.png"/></a>
-                </li>
-                <li>
-                    <a href="#"><img src="https://img.icons8.com/fluent/48/000000/twitter.png"/></a>
-                </li>
-            </ul>
-        </div>
-    </section>
-    <!-- social Section Ends Here -->
 {% endblock content %}

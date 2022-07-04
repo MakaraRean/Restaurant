@@ -1,0 +1,66 @@
+{% block content %}
+{% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign Up Form by Colorlib</title>
+
+    <link rel="stylesheet" href="{% static 'fonts/material-icon/css/material-design-iconic-font.min.css'%}">  <!-- Font Icon -->
+    <script src="{% static 'js/jquery.min.js'%}"></script><!-- JS -->
+    <script src="{% static 'js/main.js'%}"></script>
+    <link rel="stylesheet" href="{% static 'css/create.css' %}"> <!-- Main css -->
+    <link rel="stylesheet" href="{% static 'css/button.css' %}">
+
+    {% include 'menu.html' %}
+    <div class="main">
+        <div class="container">
+            <div class="booking-content">
+                <div class="booking-image">
+                    <img class="booking-img" src="{% static 'images/form-img.jpg' %}" alt="Booking Image">
+                </div>
+                <div class="booking-form">
+                    <form id="booking-form" action="/updateFood/{{ food.id }}" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <h2>Add Food and Drink</h2>
+                        <div class="form-group form-input">
+                            <input type="text" name="name" value="{{ food.name }}" required/>
+                            <label for="name" class="form-label">Victual name</label>
+                        </div>
+
+                        <div class="form-group form-input">
+                            <input type="number" name="price" value="{{ food.price|floatformat }}" required />
+                            <label for="price" class="form-label">Price</label>
+                        </div>
+                        <div class="form-group form-input">
+                            <input type="text" name="desc" value="{{ food.desc }}" />
+                            <label for="desc" class="form-label">Description</label>
+                         </div>
+                         <div class="form-group form-input">
+                            <input type="file" name="image_path" value="{{ food.image_path }}" required />
+                            <label for="image" class="form-label">Image</label>
+                         </div>
+
+                        <div class="form-group form-input" >
+                           <label for="category" style="color: #edb77d; font-size: 11px">Category ID</label>
+                            <select name="category_id">
+                                {% for cat in category %}
+                                    <option value="{{ cat.id }}" style="color: black" name="category_id" {% if food.category_id == cat.id %} selected {% endif %}>{{ cat.name }}</option>
+{#                                    <option value="{{ cat.id }}" style="color: black" name="category_id">{{ cat.name }}</option>#}
+                                {% endfor %}
+                            </select>
+                         </div>
+
+                        <div class="form-submit">
+                            <input type="submit" value="Update" class="submit" id="submit" name="submit" />
+                        </div>
+                        {% include 'message.html' %}
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+{% endblock %}

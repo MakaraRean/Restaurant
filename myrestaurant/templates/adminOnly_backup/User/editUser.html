@@ -1,0 +1,57 @@
+{% load  static %}
+{% block content %}
+
+{% include 'adminOnly/menu.html' %}
+<link rel="stylesheet" href="{% static 'css/admincss/style.css'%}">
+<link rel="stylesheet" href="{% static 'css/admincss/button.css' %}">
+<link rel="stylesheet" href="{% static 'css/admincss/textField.css' %}">
+<div class="main-content">
+    <div class="wrapper">
+        
+        <h1>Edit User</h1>
+
+        <form action="/user/update/{{ users.id }}" method="POST">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <div class="form" >
+                        <input type="text" name="full_name" value="{{ users.full_name }}" autocomplete="off" required />
+                        <label for="text" class="label-name">
+                            <span class="content-name">
+                              Full Name
+                            </span>
+                        </label>
+                    </div>
+                </tr>
+                 <tr>
+                    <div class="form">
+                        <input type="username" name="username" value="{{ users.username }}" autocomplete="off" required />
+                        <label for="text" class="label-name">
+                            <span class="content-name">
+                              Username
+                            </span>
+                        </label>
+                    </div>
+                </tr>
+                 <tr>
+                    <div class="form">
+                        <input type="password" name="password" value="{{ users.password }}" autocomplete="off" required />
+                        <label for="text" class="label-name">
+                            <span class="content-name">
+                              Password
+                            </span>
+                        </label>
+                    </div>
+                </tr>
+                <tr>
+                    <input type="submit" name="submit" value="Save" class="button-24">
+                </tr>
+
+            </table>
+
+        </form>
+    </div>
+</div>
+{% comment %} {% include 'footer.html' %} {% endcomment %}
+{% endblock %}
+

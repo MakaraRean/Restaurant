@@ -1,0 +1,56 @@
+{% load  static %}
+{% block content %}
+
+{% include 'menu.html' %}
+<link rel="stylesheet" href="{% static 'css/style.css'%}">
+<link rel="stylesheet" href="{% static 'css/button.css' %}">
+<link rel="stylesheet" href="{% static 'css/textField.css' %}">
+<div class="main-content">
+    <div class="wrapper">
+        <h1>Add User</h1>
+
+        <form action="{% url 'adduser' %}" method="POST">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <div class="form" >
+                        <input type="text" name="full_name" autocomplete="off" required />
+                        <label for="text" class="label-name">
+                            <span class="content-name">
+                              Full Name
+                            </span>
+                        </label>
+                    </div>
+                </tr>
+                 <tr>
+                    <div class="form">
+                        <input type="username" name="username" autocomplete="off" required />
+                        <label for="text" class="label-name">
+                            <span class="content-name">
+                              Username
+                            </span>
+                        </label>
+                    </div>
+                </tr>
+                 <tr>
+                    <div class="form">
+                        <input type="password" name="password" autocomplete="off" required />
+                        <label for="text" class="label-name">
+                            <span class="content-name">
+                              Password
+                            </span>
+                        </label>
+                    </div>
+                </tr>
+                <tr>
+                    <input type="submit" name="submit" value="Add User" class="button-24">
+                </tr>
+            </table>
+
+        </form>
+    </div>
+</div>
+
+{% include 'footer.html' %}
+{% endblock %}
+

@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from Restaurant.settings import MIDDLEWARE
-from myrestaurant import views
+from myrestaurant import views,viewsAdmin, viewsCategory, viewsFood
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -36,8 +36,40 @@ urlpatterns = [
     path('category/<id>',views.showByCategory,name="showByCategory"),
     path('confirm-order-by-category/<id>',views.confirmOrderByCategory),
     path('checkout',views.checkout,name="checkout"),
+    path('empty-cart',views.emptyCart,name="emptyCart"),
 
     path('admin-dashboard/',views.dashboard,name='admin-dashboard'),
+
+    # admin only
+    path('home-admin/', viewsAdmin.is_admin, name='home-admin'),
+    # CRUD users
+    path('user/', views.user, name='user'),
+    path('createUser/', views.createUser, name='createUser'),
+    path('adduser',views.adduser, name='adduser'),
+    path("user/editrow/<id>", views.editrow, name="editrow"),
+    path("user/deleterow/<id>", views.deleterow, name="deleterow"), 
+    path("user/update/<id>", views.update, name="update"),
+    # CRUD Category
+    path("category-admin/", viewsCategory.category, name="category-admin"),
+    path("addcategory/",viewsCategory.addCategory,name="addcategory"),
+    path("createCategory", viewsCategory.createCategory, name="createCategory"),
+    path("deleteCat/<id>", viewsCategory.deleteCat, name="deleteCat"),
+    path("editCat/<id>", viewsCategory.editCat, name="editCat"),
+    path("updateCat/<id>", viewsCategory.updateCat, name="updateCat"),
+    # Food
+    path("food-admin/", viewsFood.food, name="food-admin"),
+    path("createFood", viewsFood.createFood, name="createFood"),
+    path("addfood", viewsFood.addFood, name="addfood"),
+    path("deleteFood/<id>", viewsFood.deleteFood, name="deleteFood"),
+    path("editFood/<id>", viewsFood.editFood, name="editFood"),
+    path("updateFood/<id>", viewsFood.updateFood, name="updateFood"),
+    # User
+    path('user', views.user, name='user'),
+    path('createUser', views.createUser, name='createUser'),
+    path('adduser',views.adduser, name='adduser'),
+    path("deleterow/<id>", views.deleterow, name="deleterow"),
+    path("editrow/<id>", views.editrow, name="editrow"),
+    path("update/<id>", views.update, name="update"),
 ]
 MIDDLEWARE = [path('test/',views.test,name='test')]
 

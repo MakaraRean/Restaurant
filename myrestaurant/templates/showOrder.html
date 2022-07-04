@@ -1,6 +1,22 @@
 {% extends 'index.html' %}
 {% load static %}
 
+{% block css %}
+
+span{
+    color: #f7401f;
+}
+select{
+    width: 200px;
+    height: 40px;
+    border-radius: .5rem;
+    font-size: 18px;
+}
+
+{% endblock css %}
+
+
+
 {% block content %}
 
 <section class="food-menu">
@@ -9,9 +25,20 @@
         {% if cartItem.id__count == 0 %}
             <h3 class="text-center text-red">There's no item in cart.</h3>
         {% else %}
-            <h3 class="text-left">Total : {{ total.amount__sum|floatformat }} ៛</h3>
+        <Form method="post" action="{% url 'checkout' %}">
+            {% csrf_token %}
+            <h3 class="text-left">Total : <span>{{ total.amount__sum|floatformat }}</span> ៛</h3>
+            <input type="hidden" name="total" value="{{ total.amount__sum }}">
             <div> 
-                <button class="btn btn-primary" style="float: right;margin-right: 50px">Checkout</button>
+                <label style="font-size: 18px" for="table">Table Number :</label>
+                <select name="tableID" id="tableID">
+                    {% for tbl in tbls %}
+                        <option value="{{ tbl.id }}">{{ tbl.tableNumber }}</option>
+                        {% comment %} <input type="hidden" name="tableID-{{ tbl.id }}" value="{{ tbl.id }}"> {% endcomment %}
+                    {% endfor %}
+                </select>
+                <button class="btn btn-primary" style="float: right;margin-right: 50px"><a style="all : unset" href="{% url 'emptyCart' %}"><i class="fa-solid fa-trash"></i> Empty Cart</a></button>
+                <button class="btn btn-primary" style="float: right;margin-right: 50px" type="submit"><i class="fa-solid fa-basket-shopping"></i> Checkout</button>
             </div>
             <div style="margin-top: 50px">
             {% for item in orderItems %}
@@ -25,17 +52,20 @@
 
                     <div class="food-menu-desc">
                         <h3 class="text-color">{{ item.name }}</h3>
-                        <p class="food-detail">Unit Price : {{ item.price|floatformat }} ៛</p>
-                        <p class="food-price">Quantity : {{ item.qty }}</p>
-                        <p class="food-price" name="amount-{{ item.id }}">
-                            Amount : {{ item.amount|floatformat }} ៛
+                        <p class="food-detail">Unit Price : <span>{{ item.price|floatformat }}</span> ៛</p>
+                        <input type="hidden" name="price-{{ item.id }}" value="{{ item.price }}">
+                        <p class="food-price">Quantity : <span>{{ item.qty }}</span></p>
+                        <input type="hidden" name="qty-{{ item.id }}" value="{{ item.qty }}">
+                        <p class="food-price">
+                            Amount : <span>{{ item.amount|floatformat }}</span> ៛
                         </p>
+                        <input type="hidden" name="amount-{{ item.id }}" value="{{ item.amount }}">
                         <br>
                     </div>
                 </div>
             {% endfor %}
             </div>
-
+        </Form>
         {% endif %}
 
         <div class="clearfix"></div>
